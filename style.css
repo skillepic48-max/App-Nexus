@@ -1,0 +1,757 @@
+/* fonts */
+/* Note: The Google Fonts are loaded via the <link> tags in the HTML. */
+
+/* --- FIX: Apply Custom Font to Burmese text containers (used in JS generated notes) --- */
+.burmese-font {
+  /* Noto Serif Myanmar is the font loaded by the HTML <link> tag */
+  font-family: 'Noto Serif Myanmar', 'Chivo', sans-serif !important; 
+  line-height: 1.8 !important; /* Ensure readability for Burmese font */
+  color: #ffeb3b !important; /* Brighter gold/yellow for high contrast */
+  font-weight: 700 !important;
+}
+
+/* --- NEW: Style for numbers inside the Burmese quantity warning --- */
+.warning-num {
+  color: #ff5757 !important; /* Bright Red/Pink for high contrast */
+  font-size: 1.1em;
+  font-weight: 900 !important;
+  padding: 0 2px;
+}
+
+
+:root{
+  /* --- Deep Navy Blue Theme Variables --- */
+  --bg-deep: #051125; /* Deep Navy Background */
+  --card: rgba(10, 31, 64, 0.6); /* Glassy Navy */
+  --card-strong: rgba(17, 45, 87, 0.9); /* Navy Hover */
+  --stroke: rgba(148, 163, 184, 0.1); /* Subtle Grey Border */
+  --cap: rgba(17, 45, 87, 0.8); /* Navy Footer */
+  
+  --accent: #38bdf8; /* Sky Blue */
+  --accent-2: #00eaff; /* Cyan */
+  --text: #f1f5f9; /* Crisp White */
+  
+  --header-height: 64px;
+  --search-height: 40px; 
+}
+
+html,body{ height:100%; }
+
+body{
+  margin:0;
+  font-family:"Chivo",system-ui,-apple-system,segoe ui,roboto,"helvetica neue",arial,sans-serif;
+  color:var(--text);
+  background:var(--bg-deep);
+  overflow-x:hidden;
+  /* FIX: Adjust padding calculation to correctly position content below header and search bar */
+  padding-top: calc(var(--header-height) + var(--search-height)); 
+  padding-bottom: 64px;
+}
+
+/* starfield */
+#starfield{position:fixed;inset:0;width:100%;height:100%;z-index:-1;display:block;
+  background:radial-gradient(ellipse at top, #0e2a55 0%, #051125 100%); pointer-events:none}
+
+/* header */
+header{
+  position:fixed;
+  left:0;
+  right:0;
+  top:0;
+  z-index:20;
+  background: rgba(5, 17, 37, 0.85); /* Deep Navy Header BG */
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--stroke);
+  padding:14px 20px;
+  font-family:"orbitron",sans-serif;
+  font-weight:800;
+  font-size:clamp(20px,3.2vw,30px);
+  letter-spacing:.6px;
+  line-height:1;
+  color:var(--text);
+  margin-bottom: 0; /* Ensures header itself doesn't push down */
+}
+
+/* --- Search Bar Styles --- */
+#search-container {
+   position: fixed;
+   top: var(--header-height); 
+   left: 0;
+   right: 0;
+   z-index: 15;
+   padding: 6px 10px;
+   background: rgba(5, 17, 37, 0.5); /* Deep Navy Search BG */
+   backdrop-filter: blur(2px);
+   -webkit-backdrop-filter: blur(2px);
+   border-bottom: 1px solid var(--stroke);
+   /* KEY FIX: Use flexbox alignment for reliable vertical centering */
+   display: flex;
+   align-items: center; 
+   height: var(--search-height);
+   box-sizing: border-box;
+   transform: translateY(0); 
+}
+
+#product-search {
+   flex-grow: 1;
+   /* Adjusted padding to make space for the clear button on the right */
+   padding: 8px 35px 8px 40px; 
+   border-radius: 25px;
+   border: 1px solid rgba(255, 255, 255, 0.15); /* New Border */
+   background: rgba(255, 255, 255, 0.05); /* New Input BG */
+   color: var(--text);
+   font-size: 16px;
+   /* Added line-height for consistent vertical centering of placeholder text */
+   line-height: 1.5; 
+   transition: all 0.2s;
+   outline: none;
+   position: relative;
+   height: 1.5em; 
+   box-sizing: content-box;
+}
+
+#product-search:focus {
+   background: rgba(255, 255, 255, 0.1);
+   border-color: var(--accent);
+   box-shadow: none; /* Removed blue glow */
+}
+
+.search-icon {
+   position: absolute;
+   left: 25px;
+   top: 50%;
+   /* FINAL FIX: Aligned icon using cleaner -50% transform */
+   transform: translateY(-50%); 
+   font-size: 1.2em; /* Bolder size */
+   color: #cbd5e1; /* New Icon Color */
+   opacity: 0.8;
+   pointer-events: none;
+   text-shadow: 0 0 1px currentColor; 
+}
+
+/* Style for the Clear Search Button */
+.clear-search-btn {
+   position: absolute;
+   right: 20px;
+   top: 50%;
+   /* FINAL FIX: Aligning the clear button to match the search icon and input text */
+   transform: translateY(-50%); 
+   background: none;
+   border: none;
+   color: #cbd5e1; /* New Icon Color */
+   font-size: 20px;
+   line-height: 1;
+   cursor: pointer;
+   padding: 0;
+   margin: 0;
+   width: 20px;
+   height: 20px;
+   display: none; /* Initially hidden, controlled by JS */
+   opacity: 0.7;
+   transition: opacity 0.2s;
+}
+.clear-search-btn:hover {
+   opacity: 1;
+}
+
+/* --- NEW: Searching State Styles --- */
+/* Hide sections and titles when search is active */
+.is-searching h2,
+.is-searching .popular-section {
+   display: none !important;
+}
+
+/* Ensure the cards are visible within their grids, but only show matched cards */
+.is-searching .grid .card {
+   display: none;
+}
+.is-searching .grid .card.search-match {
+   display: block; /* Show only cards that match */
+}
+/* --- END: Search Bar Styles --- */
+
+
+/* --- FIX: Disable tap highlight on mobile --- */
+.card, .pop-card, .btn, .qty-btn, .back-btn, .plan-row, .cart-toggle, .remove-btn, .hero-more, #note-ok-btn, .clear-search-btn {
+   -webkit-tap-highlight-color: transparent;
+}
+
+/* section titles */
+h2 {
+   margin: 18px 10px 10px;
+   font-size: clamp(16px, 2vw, 20px);
+}
+
+/* --- FIX: Remove gap at the top of the home view --- */
+main#home-view > .popular-section {
+   padding-top: 0; 
+   margin-top: 0;
+}
+/* --- END FIX --- */
+
+
+/* popular header */
+.popular-section{padding:6px 0 8px}
+.popular-head {
+   display: flex;
+   align-items: center;
+   gap: 14px;
+   padding: 0 10px;
+}
+.popular-title {
+   margin: 0;
+   font-weight: 900;
+   letter-spacing:.3px;
+   font-size: clamp(16px, 2.2vw, 20px);
+}
+.popular-underline{flex:1;height:10px;border-radius:999px;background:linear-gradient(90deg,#38bdf8 0%,#2563eb 60%,transparent 100%);opacity:.95}
+
+/* popular scroller */
+.pop-scroller{position:relative;overflow-x:auto;overflow-y:hidden;padding:8px 8px 16px 8px;scroll-behavior:smooth;}
+.pop-scroller::-webkit-scrollbar{height:6px;}
+.pop-scroller::-webkit-scrollbar-track{background:transparent;}
+.pop-scroller::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:3px;} /* Deepened scrollbar */
+.pop-track{display:inline-flex;gap:12px;align-items:stretch}
+
+.pop-card {
+   width: 120px;
+   flex: 0 0 auto;
+   background: var(--card);
+   border: 1px solid var(--stroke);
+   border-radius: 10px;
+   overflow: hidden;
+   cursor: pointer;
+   transition: transform .18s, box-shadow .18s, background .18s;
+}
+.pop-card:hover{transform:translatey(-2px);box-shadow:0 8px 16px rgba(0,0,0,.32)}
+.pop-card img {
+   width: 100%;
+   aspect-ratio: 1/1;
+   object-fit: contain;
+   padding: 8px;
+   box-sizing: border-box;
+}
+.pop-card p {
+   /* Layout Fix: Ensure popular card titles fit on one line */
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 38px;
+   margin: 0;
+   background: var(--cap);
+   padding: 0 8px;
+   font-weight: 800;
+   font-size: 12px;
+   border-top: 1px solid var(--stroke);
+   text-align: center;
+   /* Allow multiple lines for Custom Website Service fix */
+   white-space: normal; 
+   overflow: hidden; 
+   text-overflow: ellipsis; 
+}
+
+/* grid of products */
+.grid {
+   display: grid;
+   gap: 10px;
+   padding: 0 10px 20px;
+   grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
+}
+
+@media (min-width: 480px) {
+   .grid {
+       grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+       gap: 12px;
+       padding: 0 12px 24px;
+   }
+}
+@media (min-width: 768px) {
+   .grid {
+       grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+       gap: 15px;
+       padding: 0 15px 28px;
+   }
+}
+@media (min-width: 1024px) {
+   .grid {
+       grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+       gap: 18px;
+       padding: 0 18px 32px;
+   }
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--stroke);
+  border-radius:10px;
+  overflow:hidden;
+  text-align:center;
+  cursor:pointer;
+  transition:transform .18s,box-shadow .18s,background .18s, opacity 0.3s;
+}
+.card:hover{transform:translatey(-2px);box-shadow:0 10px 18px rgba(0,0,0,.35);background:var(--card-strong)}
+.card:active{transform:scale(.985)}
+/* .card[hidden] { display: none; } */ /* Alternative to .is-searching styles */
+
+.card img {
+   width: 100%;
+   aspect-ratio: 1/1;
+   object-fit: contain;
+   background: transparent;
+   display: block;
+   padding: 8px;
+   box-sizing: border-box;
+}
+.card p {
+   /* Layout Fix: Ensure card titles fit on one line */
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 38px;
+   margin: 0;
+   background: var(--cap);
+   padding: 0 8px;
+   font-weight: 800;
+   font-size: 12px;
+   border-top: 1px solid var(--stroke);
+   text-align: center;
+   /* Allow multiple lines for Custom Website Service fix */
+   white-space: normal; 
+   overflow: hidden; 
+   text-overflow: ellipsis; 
+}
+
+/* ===== views ===== */
+.view {
+  display: none;
+  animation: fadeIn 0.4s ease-in-out;
+}
+.view.active{display:block}
+#product-page{padding:20px}
+
+/* product hero */
+.product-hero{
+   /* FIX 1: Constrain width and centralize all content inside to prevent over-stretching buttons */
+   width: min(100%, 400px); 
+   margin: 4px auto 12px auto; /* Center the hero container itself */
+   display:flex;
+   flex-direction:column;
+   align-items:center; /* Ensures image/title are centered */
+   justify-content:center;
+   gap:10px;
+}
+.hero-img-wrap{width:min(30vw,120px);aspect-ratio:1/1;border-radius:14px;border:1px solid rgba(255,255,255,.16); /* Deepened border */ background:rgba(255,255,255,.08); /* Deepened background */ box-shadow:0 6px 16px rgba(0,0,0,.30), inset 0 0 0 4px rgba(255,255,255,.04); /* Deepened shadow */ overflow:hidden}
+.hero-img-wrap img{width:100%;height:100%;object-fit:contain;display:block;padding:10px;box-sizing:border-box}
+.hero-title{font-weight:900;font-size:clamp(18px,3.5vw,24px);letter-spacing:.2px;text-align:center}
+
+/* --- VERTICAL BUTTON STACK FIX --- */
+/* The buttons are now naturally block elements, stacking vertically. */
+.product-hero .hero-more, #why-buy-btn {
+   /* Ensures buttons take 100% of the constrained .product-hero width */
+   display: block; 
+   width: 100%; 
+   margin-left: 0;
+   margin-right: 0;
+   margin-bottom: 8px; /* Spacing between stacked buttons */
+   /* FIX 2: Ensure default More Details button matches requested subtle style */
+   border-width: 1px; /* Subtle outline */
+   border-radius: 10px; /* Softer corners */
+   text-shadow: none;
+   box-shadow: none;
+}
+
+/* --- WHY BUY BUTTON NEON GLOW (UPDATED) --- */
+#why-buy-btn {
+   /* Using btn-outline base plus specific color override */
+   background: transparent;
+   color: var(--accent); /* SETTING VISIBLE COLOR */
+   border: 1px solid var(--accent); 
+   /* Neon glow effect: 0 0 5px outer, 0 0 5px inner */
+   box-shadow: 0 0 5px rgba(56, 189, 248, 0.25), inset 0 0 5px rgba(56, 189, 248, 0.15); 
+   transition: all 0.3s ease;
+}
+#why-buy-btn:hover {
+   background: rgba(56, 189, 248, 0.1);
+   box-shadow: 0 0 10px rgba(56, 189, 248, 0.5), inset 0 0 10px rgba(56, 189, 248, 0.3);
+}
+/* --- END WHY BUY BUTTON --- */
+
+
+/* --- NEW: Platform Title for products like Wink --- */
+.platform-title {
+   font-size: clamp(16px, 2.2vw, 20px);
+   font-weight: 900;
+   color: var(--accent);
+   margin: 20px 0 10px 0;
+   padding-bottom: 8px;
+   border-bottom: 2px solid var(--accent);
+   display: inline-block;
+}
+
+/* plan boxes & rows */
+.plan-box{background:var(--card);border:1px solid var(--stroke);border-radius:12px;padding:14px;margin-bottom:16px}
+.plan-title{font-size:clamp(16px,2vw,18px);font-weight:900;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.plan-rows{display:flex;flex-direction:column;gap:12px}
+
+.plan-row{
+  display:grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "title qty" "price qty";
+  align-items:center; gap:6px 16px; padding:12px 14px;
+  border-radius:10px; 
+  background: rgba(255, 255, 255, 0.05); /* New Row BG */
+  transition:transform .08s,background .2s;
+}
+.plan-row.tap-anim{transform:scale(.985); background: rgba(56, 189, 248, 0.15);} /* New Active BG */
+.plan-left{
+    /* Layout Fix: Ensure plan duration/titles fit on one line in the product view */
+    grid-area:title;
+    font-size:15px; /* Decreased font size slightly for better fit */
+    font-weight:800;
+    color: var(--text); /* Used new primary text color */
+    letter-spacing:.2px;
+    white-space: nowrap; /* Forces text onto a single line */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.plan-price{grid-area:price;font-size:16px;font-weight:900;color:var(--accent-2)}
+.plan-qty{grid-area:qty;display:flex;justify-content:flex-end}
+
+/* qty */
+.qty{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12); /* Deepened background */ border:1px solid rgba(255,255,255,.16); /* Deepened border */ border-radius:999px;padding:4px 8px}
+.qty-btn{width:28px;height:28px;border-radius:50%;border:none;background:var(--accent);color:#fff;font-size:18px;cursor:pointer;}
+.qty-btn:active{transform:scale(.92)}.qty-btn:disabled{background:#334155;cursor:default} /* New Disabled Color */
+.qty-val{min-width:20px;text-align:center;font-weight:900}
+
+/* buttons */
+.btn{padding:12px;border-radius:10px;border:none;cursor:pointer;font-size:14px;font-weight:900;transition: all .2s}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-secondary{background: #112d57; color:var(--text);border:1px solid var(--stroke);} /* Navy Secondary BG */
+.btn-outline{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,.3)} /* Deepened outline button */
+
+/* back button style */
+.back-btn {
+  margin-bottom: 20px;
+  background: var(--cap);
+  border: 1px solid var(--stroke);
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 50px;
+  transition: background-color 0.2s, transform 0.1s;
+  width: fit-content;
+  display: inline-block;
+}
+.back-btn:hover { background: var(--card-strong); }
+.back-btn:active { transform: scale(0.97); }
+
+/* --- community button --- */
+.community-btn {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    z-index: 10;
+    background-color: rgba(46, 168, 255, 0.9); /* Deepened background */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    font-size: 14px;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.25); /* Deepened border */
+}
+.community-btn:hover {
+    transform: scale(1.05);
+    background-color: var(--accent);
+}
+
+/* overlay */
+/* Applying changes to both overlay classes */
+.explain-overlay, #why-buy-overlay {
+    position:fixed;
+    inset:0;
+    background: rgba(5, 17, 37, 0.95); /* Deep Navy Overlay BG */
+    display:none;
+    place-items:center;
+    z-index:9999;
+    overflow-y: auto; 
+    padding: 20px 0; 
+    
+    /* Added Animation for smoother entrance */
+    animation: overlayFadeIn 0.25s ease-out;
+}
+.explain-card{
+    width:min(92vw,520px);
+    background: rgba(10, 31, 64, 1); /* Solid Navy version of card */
+    border:1px solid var(--stroke); 
+    border-radius:14px;
+    padding:20px;
+    max-height: 90vh; 
+    overflow-y: auto;
+    
+    /* Added Animation for Card Pop-up */
+    animation: cardSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.explain-text{font-size:15px;line-height:1.7;margin-bottom:14px;color:var(--text)}
+.explain-ok{width:100%}
+.md-h{ font-weight:800; margin:10px 0 6px; font-size:15px; color: var(--accent-2); }
+.md-p{ opacity:.95; margin:2px 0; font-size:14px; line-height:1.6; }
+.nt-line{ opacity:.95; margin:2px 0 0; font-size:14px; line-height:1.6; }
+
+/* cart */
+.cart-bar{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0; /* FIX: Ensure cart bar is pinned to the bottom */
+    top: auto;
+    background: rgba(10, 31, 64, 0.95); /* Deep Navy Cart BG */
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    border-top:1px solid var(--stroke); /* Deepened border */
+    padding:8px 12px;
+    z-index:9998; 
+    display:none;
+}
+.cart-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.cart-toggle{border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.05); color:var(--text);border-radius:8px;cursor:pointer;padding:6px 10px; transition: transform 0.2s;}
+.cart-total{font-weight:900;font-size:15px}
+.cart-actions{display:flex;gap:8px}
+.cart-items{max-height:28vh;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
+.cart-item{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;background:rgba(255,255,255,.05); /* Deepened background */ border-radius:10px;padding:8px 10px}
+.cart-item .meta{display:flex;flex-direction:column;font-size:13px}
+.cart-item .meta .title{font-weight:900}
+.cart-item .meta .sub{opacity:.85}
+.cart-item .subtotal{font-weight:900;color:#a8e1ff}
+.cart-item .remove-btn{border:none;background:transparent;color:#ff8a80; /* Used deeper red */ cursor:pointer;font-weight:900}
+.cart-bar.collapsed .cart-items{display:none}
+.cart-bar.collapsed .cart-toggle{transform:rotate(180deg)}
+
+/* ===== checkout ===== */
+.checkout-main{padding:20px;max-width:820px;margin:20px auto 120px; }
+.checkout-card{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:16px;margin-bottom:16px}
+.checkout-card h2{margin:0 0 10px;font-size:clamp(18px,2.2vw,22px);font-weight:900}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:10px;background:rgba(255,255,255,.05); /* Deepened background */ border-radius:10px;margin-bottom:8px}
+.kv span{opacity:.9}
+.kv strong{font-weight:900;color:#a8e1ff}
+.note-text{line-height:1.6}
+.note-actions{text-align:center;margin-top:12px}
+#note-ok-btn{margin:auto;display:inline-block}
+#note-step, #receipt-step, #receipt-single, #receipt-multi, #next-btn { display: none; }
+
+/* note intro text */
+.checkout-card h2 span {
+  display: block; margin-top: 5px; font-size: 16px;
+  font-weight: 600; color: #ffeb3b; opacity: 1; letter-spacing: 0.5px;
+}
+
+/* payment and warning block (used in notes and more details) */
+.payment-warning-block {
+  /* FIX 1: Restoring Yellow/Gold Border and Background for ALL warning/payment boxes */
+  padding: 15px; 
+  margin-top: 25px; 
+  background-color: rgba(10, 31, 64, 0.8); /* Deep Navy background */
+  border: 1px solid #ffca28; /* Restores the yellow border */
+  border-radius: 10px;
+}
+
+/* FIX: Specific styling for the Quantity Warning text */
+.payment-warning-block .nt-line {
+  color: #ffe082;
+  font-weight: 600;
+  opacity: 1;
+  font-size: 13px;
+  line-height: 1.4;
+  word-spacing: -0.5px; 
+}
+.payment-warning-block .nt-line:first-child { 
+    font-size: 14px; 
+    line-height: 1.3;
+}
+
+.payment-warning-block .nt-line:last-child {
+  color: #ff8a80;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 13px; 
+  line-height: 1.4;
+}
+
+/* FIX 2: Product note spacing (targets <div> containers within .note-text) */
+.note-text > div { 
+    margin-top: 25px; /* Spacing between warning/payment blocks and product notes */
+    background: var(--card); 
+    border: 1px solid var(--stroke); 
+    border-radius: 10px; 
+    padding: 15px; 
+}
+/* Ensure the first product note after the initial warning has the correct margin */
+.note-text > .payment-warning-block + div {
+    margin-top: 25px;
+}
+/* No margin-top for the very first payment warning block if it's the first thing */
+.note-text > .payment-warning-block:first-child {
+    margin-top: 0; 
+}
+
+
+/* --- NEW VPN WARNING STYLE FOR MORE DETAILS POPUP (Added for visibility) --- */
+.vpn-alert {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #ff575730; /* Deepened light red background */
+    border: 1px solid #ff575780; /* Deepened border */
+    border-radius: 6px;
+    color: #ff5757; /* Red text */
+    font-weight: 800;
+    text-align: center;
+    text-transform: uppercase;
+    animation: pulse-border 1.5s infinite;
+}
+
+@keyframes pulse-border {
+  0% { box-shadow: 0 0 0 0 rgba(255, 87, 87, 0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(255, 87, 87, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 87, 87, 0); }
+}
+
+
+/* cleaned-up receipt */
+#rm-item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.receipt-line-item {
+  background: rgba(255, 255, 255, .05); /* Deepened background */
+  border-radius: 10px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "title price"
+    "details price";
+  gap: 2px 10px;
+}
+.receipt-line-item .title {
+  grid-area: title;
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--text);
+}
+.receipt-line-item .details {
+  grid-area: details;
+  font-size: 13px;
+  opacity: 0.85;
+}
+.receipt-line-item .price {
+  grid-area: price;
+  font-weight: 900;
+  font-size: 16px;
+  color: var(--accent-2);
+  align-self: center;
+}
+.receipt-total {
+  border-top: 1px solid var(--stroke); /* Deepened border */
+  padding-top: 12px;
+  margin-top: 4px;
+  background: none;
+}
+
+/* instruction text */
+.receipt-instruction {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 15px;
+  text-align: center;
+  font-weight: 600;
+  background-color: rgba(10, 31, 64, 0.8); /* Deep Navy background */
+  border: 1px solid #ffca28;
+  border-radius: 10px;
+  color: #ffe082;
+}
+
+/* --- NEW: Receipt Warning Styles --- */
+.receipt-instruction p {
+    margin: 0;
+    padding: 0;
+}
+.receipt-warning {
+    margin-top: 15px;
+    padding: 12px;
+    background-color: rgba(255, 138, 128, 0.2); /* Deepened red background */
+    border: 1px solid rgba(255, 138, 128, 0.7); /* Deepened border */
+    border-radius: 8px;
+    color: #ffcdd2;
+    font-size: 13px;
+    line-height: 1.6;
+}
+.receipt-warning strong {
+    color: #ff8a80;
+    text-transform: uppercase;
+    font-weight: 900;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.checkout-actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.checkout-actions .btn {
+    padding: 14px 24px;
+    font-size: 15px;
+}
+
+.checkout-actions .btn.copied {
+    background-color: #22c55e; /* Emerald Green */
+    border-color: #22c55e;
+    color: white;
+}
+
+.visually-hidden{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+
+/* --- device icons --- */
+.supported-devices {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+.device-icon {
+    font-size: 20px;
+    color: var(--text);
+    opacity: 0.9; /* Made device icons less pale */
+}
+
+/* ===== ADDED FOR PAGE TRANSITION ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* ===== OVERLAY ANIMATIONS ===== */
+@keyframes overlayFadeIn { 
+    from { opacity: 0; } 
+    to { opacity: 1; } 
+}
+@keyframes cardSlideUp { 
+    from { opacity: 0; transform: scale(0.96) translateY(12px); } 
+    to { opacity: 1; transform: scale(1) translateY(0); } 
+}
