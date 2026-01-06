@@ -775,9 +775,9 @@
     }
   };
 
-  const paymentInfoBlock = `\n\nWe only accept KBZpay & Wave pay\nWe only use this number for both Payments\nKBZpay-09771664207\n(Name MyinMyintMaw)\nWave - 09771664207\n(Name MyinMyintMaw)\n\nWATCH OUT FOR SCAMMER!!`; 
+  const paymentInfoBlock = `\n\nPayment Methods:\n✅ KBZPay\n✅ WavePay\n✅ CBPay\n✅ UABPay\n✅ AYAPay\n\nAll above methods use this same number:\n09950004440\n(Name: Thet Paing Soe)\n\nWATCH OUT FOR SCAMMER!!`; 
     
-  const generalDetailsBlock = `\n\nWe only accept KBZpay & Wave pay\nWe only use this number for both Payments\nKBZpay-09771664207\n(Name MyinMyintMaw)\nWave - 09771664207\n(Name MyinMyintMaw)\n\nWATCH OUT FOR SCAMMER!!`;
+  const generalDetailsBlock = `\n\nPayment Methods:\n✅ KBZPay\n✅ WavePay\n✅ CBPay\n✅ UABPay\n✅ AYAPay\n\nAll above methods use this same number:\n09950004440\n(Name: Thet Paing Soe)\n\nWATCH OUT FOR SCAMMER!!`;
 
   const expressVpnShareNoteBase = `
 တခါတလေအကောင့်ကထွက်တာမျိုးနေဖြစ်နိုင်တယ်but ပြန်ဝင်လို့ရပါတယ်
@@ -1280,7 +1280,7 @@ Acrobat Pro → edit & sign PDFs
   /* =========================
       POPULAR SECTION LOGIC
       ========================= */
-  const popularList = ["Express Vpn", "ChatGPT Plus", "CapCut", "Netflix", "Wink"];
+  const popularList = ["CapCut", "Canva", "Telegram", "Express Vpn", "Google Drive", "TeraBox", "Gemini Veo 3", "ChatGPT Plus"];
   function renderPopular(containerId, excludeName) {
     const cont = document.getElementById(containerId);
     if (!cont) return;
@@ -1596,7 +1596,7 @@ Share plan မို့လို့ 1 device ပဲသုံးလို့ရ�
     const sectionStartIndex_fixed = lines.findIndex(line => line.toLowerCase().includes(targetSection.toLowerCase()));
 
     if (sectionStartIndex_fixed !== -1) {
-      let sectionEndIndex = lines.findIndex((line, index) => index > sectionStartIndex_fixed && (sectionHeaders.test(line) || line.includes("We only accept KBZpay")));
+      let sectionEndIndex = lines.findIndex((line, index) => index > sectionStartIndex_fixed && (sectionHeaders.test(line) || line.includes("Payment Methods")));
       if (sectionEndIndex === -1) sectionEndIndex = lines.length;
       
       let noteLines = lines.slice(sectionStartIndex_fixed + 1, sectionEndIndex).filter(l => l.length > 0);
