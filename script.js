@@ -143,6 +143,7 @@
     "PlaySafeCard": "https://ik.imagekit.io/dkdlgynlu/New-Project-52-478-B983.png",
     "TikTok Official": "https://ik.imagekit.io/dkdlgynlu/New-Project-52-B93-FC6-C.png",
     "TikTok Non Official": "https://ik.imagekit.io/dkdlgynlu/New-Project-52-B93-FC6-C.png",
+    "Facebook Official": "https://ik.imagekit.io/dkdlgynlu/New-Project-52-10387-D3.png",
     "Telegram Boosting": "https://ik.imagekit.io/dkdlgynlu/New-Project-52-ED17968.png",
     "YouTube Boosting": "https://ik.imagekit.io/dkdlgynlu/New-Project-52-87-A43-F1.png",
     "Facebook Boosting": "https://ik.imagekit.io/dkdlgynlu/New-Project-52-10387-D3.png",
@@ -309,6 +310,9 @@
         "Login method": [{ "duration": "100 Coin", "price": "5,300 Kyats" }],
         "Promote Service": [{ "duration": "1$", "price": "5,300 Kyats" }]
     },
+    "Facebook Official": {
+        "Page Boost Service": [{ "duration": "1$", "price": "5,300 Kyats" }]
+    },
     "TikTok Non Official": {
       "Views (NoDrop)": [{ "duration": "10,000 Views", "price": "1,500 Kyats" }, { "duration": "100,000 Views", "price": "7,500 Kyats" }, { "duration": "1,000,000 Views", "price": "25,000 Kyats" }],
       "Likes (NoDrop)": [{ "duration": "1,000 Likes", "price": "3,000 Kyats" }, { "duration": "10,000 Likes", "price": "16,500 Kyats" }, { "duration": "100,000 Likes", "price": "120,000 Kyats" }],
@@ -431,15 +435,23 @@
     "TradingView": `Private\nFull warranty for full duration.\nSupports all devices.` + generalDetailsBlock, 
     "PlaySafeCard": `Voucher Code\nExpires in 7 Days.\nPlease contact admin for usage details.` + generalDetailsBlock,
     "TikTok Official": `Login method
-Coinက TikTok official boostတဲ့နေရာမာ Coin တေကိုသုံးရတာပါ။အဲ့ Coin ကိုရောင်းပေးတာပါ။ Login ဝင်ပီးဝယ်ရတာပါ။ buttt email password ဘာမပေးစရာမလိုပါဘူး။
+TikTok Login Method နဲ့ Coin ဝယ်ယူမယ်ဆိုရင် အကောင့် Email (သို့မဟုတ်) Phone နဲ့ Password ပေးရပါမယ်။
+Login ဝင်တဲ့အခါ ကျနော်တို့ဘက်က တောင်းတဲ့ Verification Code လေးကို ပြန်ပို့ပေးရုံပါပဲ။
+Coin ဝယ်ယူပြီးတာနဲ့ အကောင့်ထဲကနေ ချက်ချင်းပြန်ထွက်ပေးမှာဖြစ်လို့ စိတ်ချလက်ချ အပ်နှံနိုင်ပါတယ်။
+Coin အိတ်ကပ်ထဲရောက်ဖို့ (၅) မိနစ်ကနေ (၁၅) မိနစ်ခန့်သာ ကြာမြင့်မှာဖြစ်ပါတယ်။
 
 Promote Service
 TikTok Boost Service အပ်မယ်ဆိုရင် အကောင့် Password ပေးစရာမလိုပါဘူး
 Boost လုပ်ချင်တဲ့ Video link ပို့ပေးရုံပါပဲ
 ဒီဘက် Service သမားက လုပ်ပေးတဲ့အခါ Inbox မှာဝင်လာတဲ့ Permission တောင်းတာကို Confirm နှိပ်ပေးရင်ရပါပြီ
 ( ဒါကလဲ ပထမဆုံးစအပ်တဲ့တခါပါပဲ နောက်တခါထပ်အပ်ရင် လုပ်စရာမလိုတော့ပါဘူး)
-Facebook Page လို Inreview မကြာလို့ နာရီဝက် တနာရီအတွင်း Active ဖြစ်ပါတယ်
+Facebook Page လလို Inreview မကြာလို့ နာရီဝက် တနာရီအတွင်း Active ဖြစ်ပါတယ်
 View တွေ Like , Follower တွေကတော့ ကိုယ် Boost ထားတဲ့ ရက်အတွင်း တက်နေမှာဖြစ်လို့ စိတ်ရှည်ရှည်နဲ့စောင့်ဖို့လိုပါမယ်` + generalDetailsBlock,
+    "Facebook Official": `Facebook Official Ads Boost လုပ်မယ်ဆိုရင် page ကိုပဲ boost လုပ်ပေးပါတယ်။ 
+Page မှာ Admin ခန့် ပေးရပါမယ်။​ Facebook Official
+ဒါက Panel ကနေတင်ပေးတဲ့ View/Like မဟုတ်ပါဘူး။ Meta (Facebook) ရဲ့ Official Ads Manager ကနေ Advantage+ AI စနစ်ကိုသုံးပီး တကယ့်လူစစ်စစ်တွေဆီရောက်အောင် Boost ပေးတာဖြစ်ပါတယ်။
+​Official Ad Boosting
+Page မှာ Policy ငြိတာမျိုး လုံးဝမရှိပါဘူး။ Meta Ads ကနေ တရားဝင်လုပ်ပေးတာမလို့ Reach တွေက တကယ့် Customer အစစ်တွေဆီ ရောက်မှာပါ။` + generalDetailsBlock,
     "TikTok Non Official": `Views (NoDrop)\nNo dropဆိုပေမဲ့ TikTok ကစာပို့ပီးဖျက်ချသွားရင်တာ့ပြန်မထည့်ပေးပါဘူး။ထည့်ရင်လဲအကောင့် warning ထိမာပါ။\n\nLikes (NoDrop)\nNo dropဆိုပေမဲ့ TikTok ကစာပို့ပီးဖျက်ချသွားရင်တာ့ပြန်မထည့်ပေးပါဘူး။ထည့်ရင်လဲအကောင့် warning ထိမာပါ။\n\nPackage Plan\nNo dropဆိုပေမဲ့ TikTok ကစာပို့ပီးဖျက်ချသွားရင်တာ့ပြန်မထည့်ပေးပါဘူး။ထည့်ရင်လဲအကောင့် warning ထိမာပါ။` + generalDetailsBlock,
     "Telegram Boosting": `Post Reactions are Lifetime No-Drop. Members have a 30-day refill guarantee.` + generalDetailsBlock,
     "YouTube Boosting": `Livestream Views are Impression type, please contact admin for specific details before purchasing.` + generalDetailsBlock,
@@ -499,6 +511,7 @@ View တွေ Like , Follower တွေကတော့ ကိုယ် Boost �
     "TradingView": ["android", "ios", "pc"], 
     "PlaySafeCard": [],
     "TikTok Official": ["android", "ios", "pc"],
+    "Facebook Official": ["android", "ios", "pc"],
     "TikTok Non Official": ["android", "ios", "pc"],
     "Telegram Boosting": ["android", "ios", "pc"],
     "YouTube Boosting": ["android", "ios", "pc"],
@@ -651,7 +664,7 @@ View တွေ Like , Follower တွေကတော့ ကိုယ် Boost �
     });
   }
 
-  const popularList = ["CapCut", "Canva", "Telegram", "Express Vpn", "Google Drive", "TeraBox", "Gemini Veo 3", "ChatGPT Plus"];
+  const popularList = ["CapCut", "Canva", "Telegram", "Express Vpn", "Google Drive", "TeraBox", "Gemini Veo 3", "ChatGPT Plus", "TikTok Official", "Facebook Official"];
   function renderPopular(containerId, excludeName) {
     const cont = document.getElementById(containerId);
     if (!cont) return;
@@ -859,7 +872,7 @@ View တွေ Like , Follower တွေကတော့ ကိုယ် Boost �
     const fullText = moreDetailsByProduct[productName]; 
     if (!fullText) return null;
     const lines = fullText.trim().split('\n').map(l => l.trim()).filter(l => l.length > 0);
-    const sectionHeaders = /^(Share|Private|SemiPrivate|FullPrivate|Login|Gift Plan|Link Plan|Views|Likes|Package Plan|Livestream|Post Views|Reactions|Members|Custom|Promote Service)/i; 
+    const sectionHeaders = /^(Share|Private|SemiPrivate|FullPrivate|Login|Gift Plan|Link Plan|Views|Likes|Package Plan|Livestream|Post Views|Reactions|Members|Custom|Promote Service|Page Boost Service|Page Like Service)/i; 
     let targetSection = item.section.replace(/ \(.*\)/, ''); 
     const sectionStartIndex = lines.findIndex(line => line.toLowerCase().includes(targetSection.toLowerCase()));
     if (sectionStartIndex !== -1) {
